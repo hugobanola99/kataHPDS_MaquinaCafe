@@ -66,8 +66,6 @@ public class CoffeeMachineTest {
         when(sensorLevelCoffeeMock.getValue()).thenReturn(99);
         when(sensorLevelSugarMock.getValue()).thenReturn(97);
 
-
-
         int levelWaterAfter = sensorLevelWaterMock.getValue();
         int levelCoffeeAfter = sensorLevelCoffeeMock.getValue();
         int levelSugarAfter = sensorLevelSugarMock.getValue();
