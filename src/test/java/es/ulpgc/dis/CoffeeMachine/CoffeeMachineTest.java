@@ -83,6 +83,42 @@ public class CoffeeMachineTest {
 
     @Test
     public void testPrepareLongCoffeeMock(){
+        Sensor sensorLevelWaterMock = mock(SensorLevelTank.class);
+        when(sensorLevelWaterMock.getValue()).thenReturn(99);
 
+        Sensor sensorLevelCoffeeMock = mock(SensorLevelTank.class);
+        when(sensorLevelCoffeeMock.getValue()).thenReturn(99);
+
+        Sensor sensorLevelSugarMock = mock(SensorLevelTank.class);
+        when(sensorLevelSugarMock.getValue()).thenReturn(97);
+
+        SugarSelector levelSugarSelectedMock = mock(SugarSelector.class);
+        when(levelSugarSelectedMock.getLevelSugarSelected()).thenReturn(2);
+
+        int levelWaterBefore = sensorLevelWaterMock.getValue();
+        int levelCoffeeBefore = sensorLevelCoffeeMock.getValue();
+        int levelSugarBefore = sensorLevelSugarMock.getValue();
+
+        int levelSugarSelected = levelSugarSelectedMock.getLevelSugarSelected();
+
+        //
+        coffeeMachine.prepareProduct(Product.LONG_COFFEE);
+        //
+
+        when(sensorLevelWaterMock.getValue()).thenReturn(96);
+        when(sensorLevelCoffeeMock.getValue()).thenReturn(98);
+        when(sensorLevelSugarMock.getValue()).thenReturn(95);
+
+        int levelWaterAfter = sensorLevelWaterMock.getValue();
+        int levelCoffeeAfter = sensorLevelCoffeeMock.getValue();
+        int levelSugarAfter = sensorLevelSugarMock.getValue();
+
+        assert(levelWaterBefore-levelWaterAfter == 3);
+        assert(levelCoffeeBefore-levelCoffeeAfter == 1);
+        assert(levelSugarBefore - levelSugarAfter == levelSugarSelected);
+
+        verify(sensorLevelWaterMock, times(2)).getValue();
+        verify(sensorLevelCoffeeMock, times(2)).getValue();
+        verify(sensorLevelSugarMock, times(2)).getValue();
     }
 }

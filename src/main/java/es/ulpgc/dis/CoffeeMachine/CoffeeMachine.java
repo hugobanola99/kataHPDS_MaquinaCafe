@@ -36,6 +36,8 @@ public class CoffeeMachine {
     public void prepareProduct(Product product){
         if(product == Product.COFFEE_EXPRESS){
             prepareProductCoffeeExpress();
+        }else if(product == Product.LONG_COFFEE){
+            prepareProductLongCoffee();
         }
     }
 
@@ -53,5 +55,19 @@ public class CoffeeMachine {
         mixingTank2.ejectContent();
 
 
+    }
+
+    private void prepareProductLongCoffee(){
+        int levelWaterTank = tank1.getLevelTankStub();
+        int levelCoffeeTank = tank2.getLevelTankStub();
+        int levelSugarTank = tank3.getLevelTankStub();
+
+        int levelSugarSelected = sugarSelector.getLevelSugarSelected();
+
+        if(levelWaterTank >= 3 && levelCoffeeTank >= 1 && levelSugarTank >= levelSugarSelected){
+
+        }
+
+        mixingTank2.ejectContent();
     }
 }
