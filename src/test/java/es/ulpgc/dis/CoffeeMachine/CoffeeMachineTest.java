@@ -80,4 +80,9 @@ public class CoffeeMachineTest {
 
 
     }
+
+    @Test
+    public void testPrepareLongCoffeeMock(){
+
+    }
 }
