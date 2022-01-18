@@ -39,15 +39,16 @@ public class CoffeeMachineTest {
     public void testPrepareProductCoffeeExpressMock(){
 
         Sensor sensorLevelWaterMock = mock(SensorLevelTank.class);
-        //doReturn(100).when(sensorLevelWaterMock).getValue();
         when(sensorLevelWaterMock.getValue()).thenReturn(100);
+
         Sensor sensorLevelCoffeeMock = mock(SensorLevelTank.class);
-        //doReturn(100).when(sensorLevelCoffeeMock).getValue();
         when(sensorLevelCoffeeMock.getValue()).thenReturn(100);
+
         Sensor sensorLevelSugarMock = mock(SensorLevelTank.class);
-        //doReturn(100).when(sensorLevelSugarMock).getValue();
         when(sensorLevelSugarMock.getValue()).thenReturn(100);
 
+        SugarSelector levelSugarSelectedMock = mock(SugarSelector.class);
+        when(levelSugarSelectedMock.getLevelSugarSelected()).thenReturn(3);
 
 
         int levelWaterBefore = sensorLevelWaterMock.getValue();
@@ -55,18 +56,15 @@ public class CoffeeMachineTest {
         int levelSugarBefore = sensorLevelSugarMock.getValue();
 
 
-        int levelSugarSelected = coffeeMachine.getSugarSelector().getLevelSugarSelected();
+        int levelSugarSelected = levelSugarSelectedMock.getLevelSugarSelected();
 
         //
         coffeeMachine.prepareProduct(Product.COFFEE_EXPRESS);
         //
 
-       // doReturn(99).when(sensorLevelWaterMock.getValue());
         when(sensorLevelWaterMock.getValue()).thenReturn(99);
-        //doReturn(99).when(sensorLevelCoffeeMock.getValue());
         when(sensorLevelCoffeeMock.getValue()).thenReturn(99);
-        //doReturn(99).when(sensorLevelSugarMock.getValue());
-        when(sensorLevelSugarMock.getValue()).thenReturn(99);
+        when(sensorLevelSugarMock.getValue()).thenReturn(97);
 
 
 
@@ -76,7 +74,7 @@ public class CoffeeMachineTest {
 
         assert(levelWaterBefore-levelWaterAfter == 1);
         assert(levelCoffeeBefore-levelCoffeeAfter == 1);
-        //assert(levelSugarBefore - levelSugarAfter == levelSugarSelected);
+        assert(levelSugarBefore - levelSugarAfter == levelSugarSelected);
 
         verify(sensorLevelWaterMock, times(2)).getValue();
         verify(sensorLevelCoffeeMock, times(2)).getValue();
